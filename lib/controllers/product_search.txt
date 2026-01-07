@@ -1,0 +1,45 @@
+import 'package:get/get.dart';
+
+class ProductSearchController extends GetxController {
+
+  /// 🔹 Dummy product list (abhi example)
+  /// 🔹 Isko baad me Firebase / API se connect kar sakte ho
+  var allProducts = <Map<String, dynamic>>[
+    {"name": "Rice"},
+    {"name": "Wheat"},
+    {"name": "Sugar"},
+    {"name": "Shirt"},
+    {"name": "Jeans"},
+    {"name": "Mobile"},
+    {"name": "Laptop"},
+    {"name": "Headphone"},
+  ].obs;
+
+  var filteredProducts = <Map<String, dynamic>>[].obs;
+
+  var searchQuery = "".obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    filteredProducts.assignAll(allProducts);
+  }
+
+  /// 🔍 Search Logic
+  void searchProduct(String query) {
+    searchQuery.value = query;
+
+    if (query.isEmpty) {
+      filteredProducts.assignAll(allProducts);
+    } else {
+      filteredProducts.assignAll(
+        allProducts.where(
+          (p) => p["name"]
+              .toString()
+              .toLowerCase()
+              .contains(query.toLowerCase()),
+        ),
+      );
+    }
+  }
+}

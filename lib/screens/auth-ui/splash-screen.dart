@@ -11,6 +11,7 @@ import 'package:lottie/lottie.dart';
 
 import 'package:village_bazzar/controllers/get-user-data-controller.dart';
 import 'package:village_bazzar/screens/admin-panel/admin-main-screen.dart';
+import 'package:village_bazzar/screens/admin-panel/admin_dashboard.dart';
 import 'package:village_bazzar/screens/auth-ui/welcome-screen.dart';
 import 'package:village_bazzar/screens/user-panel/main-screen.dart';
 
@@ -40,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
       var userData =await  getUserDataController.getUserData(user!.uid);
       if(userData[0]['isAdmin']==true){
-        Get.offAll(()=>AdminMainScreen());
+        Get.offAll(()=>AdminDashboard());
 
       }else{
         Get.offAll(()=>MainScreen());

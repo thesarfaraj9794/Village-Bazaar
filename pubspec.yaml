@@ -51,6 +51,9 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   razorpay_flutter: ^1.4.0
   js: ^0.6.4
+  image_picker: ^1.2.1
+  firebase_storage: ^13.0.4
+  heic_to_jpg: ^0.2.0
 
 dev_dependencies:
   flutter_test:

@@ -1,0 +1,157 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'edit_profile_screen.dart';
+import '../auth-ui/welcome-screen.dart';
+
+class AccountScreen extends StatelessWidget {
+  final user = FirebaseAuth.instance.currentUser;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color(0xFFF7F9FB),
+
+      appBar: AppBar(
+        backgroundColor: Colors.green.shade700,
+        elevation: 0,
+        title: Text("My Account",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => EditProfileScreen()),
+              );
+            },
+            icon: Icon(Icons.edit, color: Colors.white),
+          ),
+        ],
+      ),
+
+      body: StreamBuilder<DocumentSnapshot>(
+        stream: FirebaseFirestore.instance
+            .collection("users")
+            .doc(user!.uid)
+            .snapshots(),
+        builder: (context, snapshot) {
+
+          if (!snapshot.hasData) {
+            return Center(child: CircularProgressIndicator());
+          }
+
+          var data = snapshot.data!.data() as Map<String, dynamic>;
+
+          String name = data['username'] ?? "User";
+          String email = data['email'] ?? "--";
+          String phone = data['phone'] ?? "--";
+          String city = data['city'] ?? "--";
+          String address = data['userAddress'] ?? "Address not set";
+
+          return SingleChildScrollView(
+            padding: EdgeInsets.all(18),
+            child: Column(
+              children: [
+
+                // PROFILE HEADER
+                Container(
+                  padding: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(18),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black12, blurRadius: 8, offset: Offset(0, 4))
+                    ],
+                  ),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 34,
+                        backgroundColor: Colors.green.shade200,
+                        child: Text(name[0].toUpperCase(),
+                            style: TextStyle(
+                                fontSize: 30,
+                                color: Colors.green.shade900,
+                                fontWeight: FontWeight.bold)),
+                      ),
+                      SizedBox(width: 16),
+                      Expanded(
+                        child: Text(name,
+                            style: TextStyle(
+                                fontSize: 22, fontWeight: FontWeight.bold)),
+                      )
+                    ],
+                  ),
+                ),
+
+                SizedBox(height: 20),
+
+                infoCard("Email", email, Icons.email),
+                infoCard("Mobile Number", phone, Icons.phone),
+                infoCard("City", city, Icons.location_city),
+                infoCard("Address", address, Icons.home),
+
+                SizedBox(height: 20),
+
+                ElevatedButton.icon(
+                  onPressed: () async {
+                    await FirebaseAuth.instance.signOut();
+
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => WelcomeScreen()),
+                      (route) => false,
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 40, vertical: 14),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14)),
+                  ),
+                  icon: Icon(Icons.logout, color: Colors.white),
+                  label:
+                      Text("Logout", style: TextStyle(color: Colors.white)),
+                ),
+
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget infoCard(String title, String value, IconData icon) {
+    return Container(
+      padding: EdgeInsets.all(18),
+      margin: EdgeInsets.only(bottom: 14),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(18),
+          boxShadow: [
+            BoxShadow(
+                color: Colors.black12, blurRadius: 8, offset: Offset(0, 4))
+          ]),
+      child: Row(children: [
+        Icon(icon, size: 28, color: Colors.green.shade700),
+        SizedBox(width: 18),
+        Expanded(
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title,
+                    style: TextStyle(fontSize: 13, color: Colors.grey.shade700)),
+                SizedBox(height: 4),
+                Text(value,
+                    style:
+                        TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
+              ]),
+        )
+      ]),
+    );
+  }
+}

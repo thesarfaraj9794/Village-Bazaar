@@ -105,15 +105,27 @@ data['isGram'] = data['isGram'] ?? false;
                       ),
                       title: Text(orderModel.productName),
                       subtitle: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(orderModel.productTotalPrice.toString()),
-                          SizedBox(width: 10.0,),
-                          orderModel.status != true
-                              ? Text("pending..",style: TextStyle(color: Colors.green),)
-                              : Text("Delivered",style: TextStyle(color: Colors.red),),
-                        ],
-                      ),
+  children: [
+    Text(orderModel.productTotalPrice.toString()),
+    SizedBox(width: 10),
+
+    // ⭐ DELIVERY STATUS HERE ⭐
+    orderModel.status == true
+        ? Text("Delivered ✔", style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold))
+        : Text("On The Way...", style: TextStyle(color: Colors.orange, fontWeight: FontWeight.bold)),
+  ],
+),
+
+                      // subtitle: Row(
+                      //   mainAxisAlignment: MainAxisAlignment.start,
+                      //   children: [
+                      //     Text(orderModel.productTotalPrice.toString()),
+                      //     SizedBox(width: 10.0,),
+                      //     orderModel.status != true
+                      //         ? Text("pending..",style: TextStyle(color: Colors.green),)
+                      //         : Text("Delivered",style: TextStyle(color: Colors.red),),
+                      //   ],
+                      // ),
                       trailing: orderModel.status ==true?
                       ElevatedButton(onPressed: ()=>Get.to(()=>AddReviewScreen(orderModel:orderModel,)),
 

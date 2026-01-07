@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:village_bazzar/screens/admin-panel/admin_add_products.dart';
 
 import 'package:village_bazzar/screens/auth-ui/welcome-screen.dart';
 import 'package:village_bazzar/screens/user-panel/all-orders-screen.dart';
@@ -150,6 +151,8 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             ),
             
             ),
+          
+           
             Padding(padding: EdgeInsets.symmetric(horizontal: 20.0),
             child: ListTile(
               titleAlignment: ListTileTitleAlignment.center,

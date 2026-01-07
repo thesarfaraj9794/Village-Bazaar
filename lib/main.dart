@@ -17,6 +17,7 @@ Future<void> main() async {
     authDomain: "vill-bazaar.firebaseapp.com",
     projectId: "vill-bazaar",
     storageBucket: "vill-bazaar.firebasestorage.app",
+    //storageBucket: "vill-bazaar.appspot.com", 
     messagingSenderId: "81470577520",
     appId: "1:81470577520:web:a2e56b44913adb0c350db5",
     measurementId: "G-CMWYW8SSSC"

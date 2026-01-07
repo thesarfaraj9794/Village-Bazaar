@@ -7,6 +7,7 @@ import 'package:lottie/lottie.dart';
 import 'package:village_bazzar/controllers/get-user-data-controller.dart';
 import 'package:village_bazzar/controllers/sign-in-controller.dart';
 import 'package:village_bazzar/screens/admin-panel/admin-main-screen.dart';
+import 'package:village_bazzar/screens/admin-panel/admin_dashboard.dart';
 import 'package:village_bazzar/screens/auth-ui/forget-password-screen.dart';
 import 'package:village_bazzar/screens/auth-ui/sign-up-screen.dart';
 import 'package:village_bazzar/screens/user-panel/main-screen.dart';
@@ -182,7 +183,7 @@ class _SigninScreenState extends State<SigninScreen>
 
                   const SizedBox(height: 25),
 
-                  // ========================= SIGN IN BUTTON ===============================
+                  // ========================= SIGN IN B
                   Container(
                     width: Get.width * 0.45,
                     height: Get.height / 18,
@@ -253,7 +254,7 @@ class _SigninScreenState extends State<SigninScreen>
                                 backgroundColor:
                                     const Color.fromARGB(255, 192, 198, 206),
                                 colorText: Colors.black);
-                            Get.offAll(() => AdminMainScreen());
+                            Get.offAll(() => AdminDashboard());
                           } else {
                             Get.snackbar("Success", "Login successful!",
                                 snackPosition: SnackPosition.BOTTOM,
